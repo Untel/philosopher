@@ -12,6 +12,7 @@ LIBS				=
 SRCS_DIR			= srcs
 SRCS_FILES			= \
 	main.c \
+	utils.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 
@@ -22,9 +23,8 @@ CFLAGS				= -Ofast -D OS=$(OS) -Wall -Wextra -Werror $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 	
+ARGS				= 1 2 3 4 5
 OBJ_DIR				= objs
-
 
 all:				
 					@$(MAKE) $(NAME)
