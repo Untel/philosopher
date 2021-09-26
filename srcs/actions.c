@@ -6,39 +6,54 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:20:41 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 19:38:21 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 22:31:46 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void
+	print_status(t_philo *p, char *txt)
+{
+	pthread_mutex_lock(&(p->env->mut_writer));
+	printf(txt, timestamp(), p->id);
+	pthread_mutex_unlock(&(p->env->mut_writer));
+}
+
+void
 	take_fork(t_philo *p)
 {
 	pthread_mutex_lock(&p->env->mut_forks[p->left_fork]);
-	printf(STATUS_TAKE_FORK, timestamp(), p->id);
+	print_status(p, STATUS_TAKE_FORK);
 	pthread_mutex_lock(&p->env->mut_forks[p->right_fork]);
-	printf(STATUS_TAKE_FORK, timestamp(), p->id);
+	print_status(p, STATUS_TAKE_FORK);
 }
 
 void
 	eat(t_philo *p)
 {
-	printf(STATUS_EATING, timestamp(), p->id);
-	usleep(p->env->tt_eat * 1000);
+	print_status(p, STATUS_EATING);
+	p->eating = TRUE;
+	usleep(p->env->tt_eat);
+	p->eating = FALSE;
+	p->eat_count += 1;
+	p->last_meal = timestamp();
+	p->die_at = p->last_meal + p->env->tt_die;
+	// print_status(p, CUSTOM_STATUS);
 }
 
 void
 	think(t_philo *p)
 {
-	printf(STATUS_THINKING, timestamp(), p->id);
+	print_status(p, STATUS_THINKING);
 }
 
 void
 	go_bed(t_philo *p)
 {
-	pthread_mutex_unlock(&p->env->mut_forks[p->right_fork]);
-	pthread_mutex_unlock(&p->env->mut_forks[p->left_fork]);
-	printf(STATUS_SLEEPING, timestamp(), p->id);
-	usleep(p->env->tt_sleep * 1000);
+	print_status(p, STATUS_SLEEPING);
+	pthread_mutex_unlock(&(p->env->mut_forks[p->left_fork]));
+	pthread_mutex_unlock(&(p->env->mut_forks[p->right_fork]));
+	usleep(p->env->tt_sleep);
+	// printf("%d END to sleep for %d\n\n\n", p->id, p->env->tt_sleep);
 }

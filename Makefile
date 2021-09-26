@@ -7,6 +7,7 @@ SRCS_FILES			= \
 	setup.c \
 	debug.c \
 	actions.c \
+	clean.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 INCLUDES			= -I./srcs
@@ -16,7 +17,7 @@ CFLAGS				= -Wall -Wextra -Werror $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 20 1 3 4 5
+ARGS				= 20 10000 100000 1000 5
 OBJ_DIR				= objs
 
 all:				

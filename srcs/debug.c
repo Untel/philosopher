@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 18:12:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 18:14:54 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 22:01:13 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void
 {
 	printf("-------------------------------------------------------\n");
 	printf("Philo id %d\n", t->id);
-	printf("Philo lf %d | rf %d\n", t->left_fork, t->right_fork);
+	printf("lf %d | rf %d\n", t->left_fork, t->right_fork);
+	printf("Last meal (%d): %llu | die at %llu\n", t->eating, t->last_meal, t->die_at);
 	printf("-------------------------------------------------------\n");
 }

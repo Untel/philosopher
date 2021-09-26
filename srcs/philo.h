@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 20:22:27 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 22:09:39 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define STATUS_SLEEPING		"%llu %d is sleeping\n"
 # define STATUS_EATING			"%llu %d is eating\n"
 # define STATUS_DEAD			"%llu %d died\n"
+# define CUSTOM_STATUS			"%llu %d checkpoint\n"
 
 /**
  ** Texts
@@ -64,9 +65,11 @@ typedef struct s_philo {
 	int							left_fork;
 	int							right_fork;
 	int							eat_count;
+	int							eating;
+	uint64_t					last_meal;
+	uint64_t					die_at;
 	struct s_env				*env;
 	pthread_t					tid;
-	pthread_mutex_t				mutex;
 }								t_philo;
 
 typedef struct s_env {
@@ -115,8 +118,13 @@ int			ft_atoi(const char *str);
 uint64_t	timestamp(void);
 
 /**
+ ** Prototypes clean.c
+ **/
+int			clean_env(t_env *e);
+
+/**
  ** Prototypes debug.c
  **/
 void		print_env(t_env *e);
-void		print_philo(t_philo *t);
+void		print_philo(t_philo *p);
 #endif
