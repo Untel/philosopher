@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 17:43:35 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 18:18:33 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
  ** Texts
  **/
 # define ERR_ARGS_COUNT			"Error: args count\n"
+# define ERR_INIT_PHILOS		"Error: can't init philos\n"
+# define ERR_PHILO_COUNT		"Error: cannot have less than 2 philos\n"
 # define STATUS_TAKE_FORK		"%llu %d has taken a fork\n"
 # define STATUS_THINKING		"%llu %d is thinking\n"
 # define STATUS_SLEEPING		"%llu %d is sleeping\n"
@@ -44,6 +46,15 @@
 /**
  ** Structs
  **/
+
+typedef struct s_philo {
+	int							id;
+	int							left_fork;
+	int							right_fork;
+	int							eat_count;
+	struct s_env				*env;
+}								t_philo;
+
 typedef struct s_env {
 	int							nb_philo;
 	int							tt_eat;
@@ -51,27 +62,35 @@ typedef struct s_env {
 	int							tt_sleep;
 	int							nb_eat;
 	int							turn;
+	struct s_philo				*philos;
 }								t_env;
-
-typedef struct s_philo {
-	int							nb_philo;
-	t_env						env;
-}								t_philo;
 
 /**
  ** Prototypes main.c
  **/
-int								main(int argc, char**argv);
+int			main(int argc, char**argv);
+
+/**
+ ** Prototypes setup.c
+ **/
+int			args_are_valids(t_env *e, int argc, char **argv);
+int			check_args(t_env *e);
+int			setup_philos(t_env *e);
 
 /**
  ** Prototypes routine.c
  **/
-int								run_routine(t_env *e);
+int			run_routine(t_env *e);
 
 /**
  ** Prototypes utils.c
  **/
-int								ft_atoi(const char *str);
-void							print_env(t_env *e);
-uint64_t						timestamp(void);
+int			ft_atoi(const char *str);
+uint64_t	timestamp(void);
+
+/**
+ ** Prototypes debug.c
+ **/
+void		print_env(t_env *e);
+void		print_philo(t_philo *t);
 #endif

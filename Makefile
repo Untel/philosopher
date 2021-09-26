@@ -1,12 +1,3 @@
-UNAME_S				:= $(shell uname -s)
-OS					= 0
-
-ifeq ($(UNAME_S), Linux)
-	# Is Linux
-else ifeq ($(UNAME_S), Darwin)
-	# Is MacOs
-endif
-
 LIBS				=
 
 SRCS_DIR			= srcs
@@ -14,17 +5,19 @@ SRCS_FILES			= \
 	main.c \
 	utils.c \
 	routine.c \
+	setup.c \
+	debug.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 
 INCLUDES			= -I./srcs
 
 CC					= gcc
-CFLAGS				= -Ofast -D OS=$(OS) -Wall -Wextra -Werror $(INCLUDES)
+CFLAGS				= -Wall -Wextra -Werror $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 1 2 3 4 5
+ARGS				= 2 2 3 4 5
 OBJ_DIR				= objs
 
 all:				
