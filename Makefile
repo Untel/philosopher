@@ -13,6 +13,7 @@ SRCS_DIR			= srcs
 SRCS_FILES			= \
 	main.c \
 	utils.c \
+	routine.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 

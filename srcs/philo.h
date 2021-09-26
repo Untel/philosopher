@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/17 23:40:24 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 17:43:35 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
  ** Includes
  **/
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 /**
  ** Constants
@@ -30,23 +34,29 @@
 /**
  ** Texts
  **/
-# define ERR_ARGS_COUNT			"Error: args count"
-# define STATUS_TAKE_FORK		"%d %d has taken a fork"
-# define STATUS_THINKING		"%d %d is thinking"
-# define STATUS_SLEEPING		"%d %d is sleeping"
-# define STATUS_EATING			"%d %d is eating"
-# define STATUS_DEAD			"%d %d died"
+# define ERR_ARGS_COUNT			"Error: args count\n"
+# define STATUS_TAKE_FORK		"%llu %d has taken a fork\n"
+# define STATUS_THINKING		"%llu %d is thinking\n"
+# define STATUS_SLEEPING		"%llu %d is sleeping\n"
+# define STATUS_EATING			"%llu %d is eating\n"
+# define STATUS_DEAD			"%llu %d died\n"
 
 /**
  ** Structs
  **/
-typedef struct s_data {
+typedef struct s_env {
 	int							nb_philo;
 	int							tt_eat;
 	int							tt_die;
 	int							tt_sleep;
 	int							nb_eat;
-}								t_data;
+	int							turn;
+}								t_env;
+
+typedef struct s_philo {
+	int							nb_philo;
+	t_env						env;
+}								t_philo;
 
 /**
  ** Prototypes main.c
@@ -54,8 +64,14 @@ typedef struct s_data {
 int								main(int argc, char**argv);
 
 /**
+ ** Prototypes routine.c
+ **/
+int								run_routine(t_env *e);
+
+/**
  ** Prototypes utils.c
  **/
-int								t_atoi(const char *str);
-void							print_data(t_data *d);
+int								ft_atoi(const char *str);
+void							print_env(t_env *e);
+uint64_t						timestamp(void);
 #endif

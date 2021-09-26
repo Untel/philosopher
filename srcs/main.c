@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/17 23:29:39 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 17:43:01 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@
  ** args_are_valids
  **/
 int
-	args_are_valids(t_data *d, int argc, char **argv)
+	args_are_valids(t_env *e, int argc, char **argv)
 {
 	(void) argv;
 	if (argc < 5 || argc > 6)
 		return (printf(ERR_ARGS_COUNT) && FALSE);
-	d->nb_philo = ft_atoi(argv[1]);
-	d->tt_eat = ft_atoi(argv[2]);
-	d->tt_die = ft_atoi(argv[3]);
-	d->tt_sleep = ft_atoi(argv[4]);
+	e->nb_philo = ft_atoi(argv[1]);
+	e->tt_eat = ft_atoi(argv[2]);
+	e->tt_die = ft_atoi(argv[3]);
+	e->tt_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		d->nb_eat = ft_atoi(argv[5]);
+		e->nb_eat = ft_atoi(argv[5]);
 	else
-		d->nb_eat = NONE;
+		e->nb_eat = NONE;
+	e->turn = 0;
 	return (TRUE);
 }
 
@@ -38,10 +39,11 @@ int
 int
 	main(int argc, char **argv)
 {
-	t_data	d;
+	t_env	e;
 
-	if (!args_are_valids(&d, argc, argv))
+	if (!args_are_valids(&e, argc, argv))
 		return (EXIT_FAILURE);
-	print_data(&d);
+	print_env(&e);
+	run_routine(&e);
 	return (EXIT_SUCCESS);
 }

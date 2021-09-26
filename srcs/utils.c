@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 23:22:52 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/17 23:41:05 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 17:42:07 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,17 @@ int
 	return (count * sign);
 }
 
+uint64_t
+	timestamp(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
+
 void
-	print_data(t_data *d)
+	print_env(t_env *d)
 {
 	printf("-------------------------------------------------------\n");
 	printf("Args: nb_philo (%d) | tt_eat (%d)", d->nb_philo, d->tt_eat);
