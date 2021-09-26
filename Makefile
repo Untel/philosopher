@@ -1,4 +1,3 @@
-LIBS				=
 
 SRCS_DIR			= srcs
 SRCS_FILES			= \
@@ -7,17 +6,17 @@ SRCS_FILES			= \
 	routine.c \
 	setup.c \
 	debug.c \
+	actions.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
-
 INCLUDES			= -I./srcs
-
+LIBS				= -lpthread
 CC					= gcc
 CFLAGS				= -Wall -Wextra -Werror $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 2 2 3 4 5
+ARGS				= 20 1 3 4 5
 OBJ_DIR				= objs
 
 all:				

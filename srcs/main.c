@@ -6,11 +6,34 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 18:18:55 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/26 20:31:04 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/**
+ **	create_threads
+ **/
+int
+	create_threads(t_env *e)
+{
+	int			i;
+	t_philo		*p;
+
+	i = -1;
+	while (++i < e->nb_philo)
+	{
+		p = &(e->philos[i]);
+		// printf("Creating philo %d tread\n\n", i);
+		// print_philo(p);
+		if (pthread_create(&(p->tid), NULL, &run_routine, (void *)p) != 0)
+			return (1);
+		pthread_detach(p->tid);
+		usleep(100);
+	}
+	return (0);
+}
 
 /**
  **	Main
@@ -22,7 +45,8 @@ int
 
 	if (!args_are_valids(&e, argc, argv))
 		return (EXIT_FAILURE);
-	print_env(&e);
-	run_routine(&e);
+	// print_env(&e);
+	printf("\n\n\n\nSTART ROUTINE\n\n\n\n");
+	create_threads(&e);
 	return (EXIT_SUCCESS);
 }
