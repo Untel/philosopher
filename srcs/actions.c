@@ -34,7 +34,7 @@ void
 {
 	print_status(p, STATUS_EATING);
 	p->eating = TRUE;
-	usleep(p->env->tt_eat);
+	sleep_ms(p->env->tt_eat);
 	p->eating = FALSE;
 	p->eat_count += 1;
 	p->last_meal = timestamp();
@@ -54,6 +54,5 @@ void
 	print_status(p, STATUS_SLEEPING);
 	pthread_mutex_unlock(&(p->env->mut_forks[p->left_fork]));
 	pthread_mutex_unlock(&(p->env->mut_forks[p->right_fork]));
-	usleep(p->env->tt_sleep);
-	// printf("%d END to sleep for %d\n\n\n", p->id, p->env->tt_sleep);
+	sleep_ms(p->env->tt_sleep);
 }

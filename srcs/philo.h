@@ -31,6 +31,7 @@
 # define NONE					-1
 # define EXIT_FAILURE			1
 # define EXIT_SUCCESS			0
+# define MS_TO_US				1000
 
 /**
  ** Errors
@@ -116,6 +117,7 @@ void		go_bed(t_philo *t);
  **/
 int			ft_atoi(const char *str);
 uint64_t	timestamp(void);
+void		sleep_ms(int ms);
 
 /**
  ** Prototypes clean.c

@@ -24,13 +24,14 @@ void
 	// printf("=> Philo %d ref is %p\n", p->id, p);
 	p->last_meal = timestamp();
 	p->die_at = p->last_meal + p->env->tt_die;
-	while (!p->env->end)
+	while (1)
 	{
+		// printf("END OF DAY Philo %d ref is %p\n\n\n\n", p->id, p);
+		
 		take_fork(p);
 		eat(p);
 		go_bed(p);
 		think(p);
-		// printf("END OF DAY Philo %d ref is %p\n\n\n\n", p->id, p);
 	}
 	return (NULL);
 }

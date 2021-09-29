@@ -59,3 +59,9 @@ uint64_t
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
+
+void
+	sleep_ms(int ms)
+{
+	usleep(ms * MS_TO_US);
+}

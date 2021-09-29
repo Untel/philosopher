@@ -31,7 +31,7 @@ int
 		if (pthread_create(&(p->tid), NULL, &run_routine, (void *)p) != 0)
 			return (FALSE);
 		pthread_detach(p->tid);
-		usleep(100);
+		sleep_ms(100);
 	}
 	return (TRUE);
 }
@@ -49,6 +49,7 @@ int
 	print_env(&e);
 	printf("\n\n\n\nSTART ROUTINE\n\n\n\n");
 	create_threads(&e);
+	while (!e.end);
 	clean_env(&e);
 	return (EXIT_SUCCESS);
 }
