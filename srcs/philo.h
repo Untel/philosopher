@@ -6,9 +6,10 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 22:09:39 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/30 01:41:15 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -33,6 +34,14 @@
 # define EXIT_SUCCESS			0
 # define MS_TO_US				1000
 
+# ifndef TTS_START
+#  define TTS_START				0
+# endif
+
+# ifndef DELAY_THREAD_CREATION
+#  define DELAY_THREAD_CREATION	0
+# endif
+
 /**
  ** Errors
  **/
@@ -51,6 +60,7 @@
 # define STATUS_EATING			"%llu %d is eating\n"
 # define STATUS_DEAD			"%llu %d died\n"
 # define CUSTOM_STATUS			"%llu %d checkpoint\n"
+# define ALL_PHILOS_ATE			"%llu all philos ate\n"
 
 /**
  ** Texts
@@ -81,6 +91,7 @@ typedef struct s_env {
 	int							nb_eat;
 	int							turn;
 	int							end;
+	uint64_t					start_tts;
 	t_philo						*philos;
 	pthread_mutex_t				mut_writer;
 	pthread_mutex_t				mut_death_writer;
@@ -113,10 +124,25 @@ void		think(t_philo *t);
 void		go_bed(t_philo *t);
 
 /**
+ ** Prototypes prints.c
+ **/
+int			print_status(t_philo *p, char *txt, int unlock);
+int			print_fatal(t_env *e, char *txt);
+int			print_death(t_philo *p, char *txt);
+int			print_info(t_env *e, char *txt);
+
+/**
  ** Prototypes utils.c
  **/
 int			ft_atoi(const char *str);
-uint64_t	timestamp(void);
+int			ft_isspace(int c);
+int			ft_isdigit(int c);
+
+/**
+ ** Prototypes time.c
+ **/
+uint64_t	real_timestamp(void);
+uint64_t	timestamp(t_env *e);
 void		sleep_ms(int ms);
 
 /**
@@ -127,6 +153,6 @@ int			clean_env(t_env *e);
 /**
  ** Prototypes debug.c
  **/
-void		print_env(t_env *e);
-void		print_philo(t_philo *p);
+int			print_env(t_env *e);
+int			print_philo(t_philo *p);
 #endif

@@ -8,16 +8,20 @@ SRCS_FILES			= \
 					debug.c \
 					actions.c \
 					clean.c \
+					prints.c \
+					time.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 INCLUDES			= -I./srcs
 LIBS				= -lpthread
 CC					= gcc
-CFLAGS				= -Wall -Wextra -Werror $(INCLUDES)
+
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0
+CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 2 200 800 400 5
+ARGS				= 20000 200 800 400
 OBJ_DIR				= objs
 
 all:				

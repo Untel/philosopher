@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/26 21:59:51 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/09/30 02:03:47 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int
 		e->nb_eat = 0;
 	e->turn = 0;
 	e->end = 0;
+	if (TTS_START)
+		e->start_tts = real_timestamp();
+	else
+		e->start_tts = 0;
 	return (check_args(e));
 }
 
@@ -74,7 +78,7 @@ int
 			.eating = FALSE, .die_at = 0, .last_meal = 0,
 		};
 		pthread_mutex_init(&e->mut_forks[i], NULL);
-		print_philo(&(e->philos[i]));
+		// print_philo(&(e->philos[i]));
 	}
 	pthread_mutex_init(&e->mut_writer, NULL);
 	return (TRUE);
