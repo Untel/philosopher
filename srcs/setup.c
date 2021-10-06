@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/30 02:03:47 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/07 00:38:49 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int
 	if (argc < 5 || argc > 6)
 		return (printf(ERR_ARGS_COUNT) && FALSE);
 	e->nb_philo = ft_atoi(argv[1]);
-	e->tt_eat = ft_atoi(argv[2]);
-	e->tt_die = ft_atoi(argv[3]);
+	e->tt_die = ft_atoi(argv[2]);
+	e->tt_eat = ft_atoi(argv[3]);
 	e->tt_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		e->nb_eat = ft_atoi(argv[5]);
@@ -44,7 +44,9 @@ int
 	check_args(t_env *e)
 {
 	if (e->nb_philo < 2)
-		return (printf(ERR_PHILO_COUNT) && FALSE);
+		return (printf(ERR_LESS_PHILOS) && FALSE);
+	if (e->nb_philo > 200)
+		return (printf(ERR_MORE_PHILOS) && FALSE);
 	if (e->tt_die < 0)
 		return (printf(ERR_ARG_NEG, "time_to_die") && FALSE);
 	if (e->tt_eat < 0)
@@ -74,12 +76,15 @@ int
 	while (--i >= 0)
 	{
 		e->philos[i] = (t_philo){.id = i, .env = e, .left_fork = i,
-			.right_fork = (i + 1) % e->nb_philo, .eat_count = 0,
-			.eating = FALSE, .die_at = 0, .last_meal = 0,
+			.right_fork = (i + 1) % e->nb_philo, .eating = FALSE,
+			.die_at = 0, .last_meal = 0,
 		};
 		pthread_mutex_init(&e->mut_forks[i], NULL);
+		pthread_mutex_init(&e->philos[i].mut_eat, NULL);
 		// print_philo(&(e->philos[i]));
 	}
 	pthread_mutex_init(&e->mut_writer, NULL);
+	pthread_mutex_init(&e->mut_end, NULL);
+	pthread_mutex_lock(&e->mut_end);
 	return (TRUE);
 }

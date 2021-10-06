@@ -16,12 +16,12 @@ INCLUDES			= -I./srcs
 LIBS				= -lpthread
 CC					= gcc
 
-OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=10
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 20000 200 800 400
+ARGS				= 5 800 200 200
 OBJ_DIR				= objs
 
 all:				

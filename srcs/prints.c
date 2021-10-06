@@ -13,12 +13,12 @@
 #include "philo.h"
 
 int
-	print_status(t_philo *p, char *txt, int unlock)
+	print_status(t_philo *p, uint64_t tts, char *txt, int unlock)
 {
 	pthread_mutex_lock(&(p->env->mut_writer));
 	if (p->env->end)
 		return (FALSE);
-	printf(txt, timestamp(p->env), p->id);
+	printf(txt, tts, p->id + 1);
 	if (unlock)
 		pthread_mutex_unlock(&(p->env->mut_writer));
 	return (TRUE);
@@ -37,7 +37,7 @@ int
 	print_death(t_philo *p, char *txt)
 {
 	pthread_mutex_lock(&(p->env->mut_writer));
-	printf(txt, timestamp(p->env), p->id);
+	printf(txt, timestamp(p->env), p->id + 1);
 	return (TRUE);
 }
 
