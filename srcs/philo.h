@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/07 00:39:00 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/10/07 23:36:36 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  ** Includes
  **/
 # include <stdio.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <pthread.h>
