@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:35:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/30 01:31:10 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/08 08:54:23 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void
 	t_philo	*p;
 
 	p = (t_philo *)addr;
+	// sleep_ms(p->DELAY_THREAD_CREATION);
 	p->last_meal = timestamp(p->env);
 	p->die_at = p->last_meal + p->env->tt_die;
 	if (pthread_create(&p->liveness_tid, NULL, &liveness_routine, addr) != 0)

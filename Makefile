@@ -12,7 +12,7 @@ SRCS_FILES			= \
 					time.c \
 
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
-INCLUDES			= -I./srcs
+INCLUDES			= -I .
 LIBS				= -lpthread
 CC					= gcc
 
@@ -27,7 +27,7 @@ OBJ_DIR				= objs
 all:				
 					@$(MAKE) $(NAME)
 
-$(NAME):			$(OBJS)
+$(NAME):			$(OBJS) philo.h
 					$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
 bonus:				all
