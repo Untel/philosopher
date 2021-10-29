@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
+/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/07 23:36:36 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/10/29 18:12:36 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -24,6 +23,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <string.h>
 
 /**
  ** Constants
@@ -43,6 +43,10 @@
 #  define DELAY_THREAD_CREATION	0
 # endif
 
+# ifndef USE_PRINTF
+#  define USE_PRINTF			0
+# endif
+
 /**
  ** Errors
  **/
@@ -56,15 +60,12 @@
 /**
  ** Status
  **/
-# define STATUS_TAKE_FORK		"%llu %d has taken a fork\n"
-# define STATUS_THINKING		"%llu %d is thinking\n"
-# define STATUS_SLEEPING		"%llu %d is sleeping\n"
-# define STATUS_EATING			"%llu %d is eating\n"
-# define STATUS_DEAD			"%llu %d died\n"
-# define SHOULD_DIE				"%llu %d should die but is eating\n"
-# define CUSTOM_STATUS			"%llu %d checkpoint\n"
-# define ALL_PHILOS_ATE			"%llu all philos ate\n"
-# define HAS_LUNCH				"%llu %d has lunch\n"
+# define STATUS_TAKE_FORK		"has taken a fork\n"
+# define STATUS_THINKING		"is thinking\n"
+# define STATUS_SLEEPING		"is sleeping\n"
+# define STATUS_EATING			"is eating\n"
+# define STATUS_DEAD			"died\n"
+# define ALL_PHILOS_ATE			"all philos ate\n"
 
 /**
  ** Texts
@@ -101,7 +102,7 @@ typedef struct s_env {
 	pthread_mutex_t				mut_writer;
 	pthread_mutex_t				mut_end;
 	pthread_mutex_t				*mut_forks;
-	pthread_t					eat_count_tid;
+	pthread_t					ecm_tid;
 }								t_env;
 
 /**
@@ -134,10 +135,8 @@ void		go_bed(t_philo *t);
 /**
  ** Prototypes prints.c
  **/
-int			print_status(t_philo *p, uint64_t tts, char *txt, int unlock);
+int			print_status(t_philo *p, int tts, char *txt, int unlock);
 int			print_fatal(t_env *e, char *txt);
-int			print_death(t_philo *p, char *txt);
-int			print_info(t_env *e, char *txt);
 
 /**
  ** Prototypes utils.c
@@ -145,12 +144,14 @@ int			print_info(t_env *e, char *txt);
 int			ft_atoi(const char *str);
 int			ft_isspace(int c);
 int			ft_isdigit(int c);
+int			ft_itoa(char *buff, int value, char *base, int base_size);
+int			ft_strlen(char *str);
 
 /**
  ** Prototypes time.c
  **/
 uint64_t	real_timestamp(void);
-uint64_t	timestamp(t_env *e);
+int			timestamp(t_env *e);
 void		sleep_ms(int ms);
 
 /**
@@ -158,9 +159,4 @@ void		sleep_ms(int ms);
  **/
 int			clean_env(t_env *e);
 
-/**
- ** Prototypes debug.c
- **/
-int			print_env(t_env *e);
-int			print_philo(t_philo *p);
 #endif

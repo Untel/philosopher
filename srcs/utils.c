@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 23:22:52 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/30 01:21:55 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 17:55:40 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,31 @@ int
 		count = count * 10 + (str[i++] - '0');
 	}
 	return (count * sign);
+}
+
+int
+	ft_itoa(char *buff, int value, char *base, int base_size)
+{
+	int		i;
+
+	i = 0;
+	buff[4095 - i++] = base[value % base_size];
+	value /= base_size;
+	while (value > 0)
+	{
+		buff[4095 - i++] = base[value % base_size];
+		value /= base_size;
+	}
+	return (i);
+}
+
+int
+	ft_strlen(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
 }

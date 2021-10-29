@@ -5,7 +5,6 @@ SRCS_FILES			= \
 					utils.c \
 					routine.c \
 					setup.c \
-					debug.c \
 					actions.c \
 					clean.c \
 					prints.c \
@@ -16,12 +15,12 @@ INCLUDES			= -I .
 LIBS				= -lpthread
 CC					= gcc
 
-OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=10
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
-ARGS				= 5 800 200 200
+ARGS				= 20 410 300 100
 OBJ_DIR				= objs
 
 all:				

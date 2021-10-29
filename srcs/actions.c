@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:20:41 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/30 01:32:36 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 18:36:39 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void
 {
 	int			first_fork;
 	int			next_fork;
-	uint64_t	tts;
+	int			tts;
 
 	if (p->id % 2 == 0)
 	{
@@ -40,7 +40,7 @@ void
 void
 	eat(t_philo *p)
 {
-	uint64_t	tts;
+	int		tts;
 
 	p->eating = TRUE;
 	tts = timestamp(p->env);
@@ -55,7 +55,7 @@ void
 void
 	think(t_philo *p)
 {
-	uint64_t	tts;
+	int		tts;
 
 	tts = timestamp(p->env);
 	print_status(p, tts, STATUS_THINKING, TRUE);
@@ -64,10 +64,7 @@ void
 void
 	go_bed(t_philo *p)
 {
-	uint64_t	tts;
-
-	tts = timestamp(p->env);
-	print_status(p, tts, STATUS_SLEEPING, TRUE);
+	print_status(p, p->last_meal, STATUS_SLEEPING, TRUE);
 	pthread_mutex_unlock(&(p->env->mut_forks[p->left_fork]));
 	pthread_mutex_unlock(&(p->env->mut_forks[p->right_fork]));
 	sleep_ms(p->env->tt_sleep);

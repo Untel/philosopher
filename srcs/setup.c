@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
+/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/07 00:38:49 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/10/29 16:24:54 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int
 		};
 		pthread_mutex_init(&e->mut_forks[i], NULL);
 		pthread_mutex_init(&e->philos[i].mut_eat, NULL);
-		// print_philo(&(e->philos[i]));
 	}
 	pthread_mutex_init(&e->mut_writer, NULL);
 	pthread_mutex_init(&e->mut_end, NULL);

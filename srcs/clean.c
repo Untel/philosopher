@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 20:50:26 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/09/30 01:51:13 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 16:21:07 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int
 	clean_env(t_env *e)
 {
 	(void)e;
-	// free(e->philos);
-	// free(e->mut_forks);
+	free(e->philos);
+	free(e->mut_forks);
 	return (TRUE);
 }
