@@ -15,10 +15,10 @@ INCLUDES			= -I .
 LIBS				= -lpthread
 CC					= gcc
 
-OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0 
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
-NAME				= philo
+NAME				= philosopher
 
 ARGS				= 20 410 300 100
 OBJ_DIR				= objs

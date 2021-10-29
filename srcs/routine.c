@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:35:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 18:20:29 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 19:57:03 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void
 	{
 		i = -1;
 		while (++i < env->nb_philo)
+		{
 			pthread_mutex_lock(&env->philos[i].mut_eat);
+		}
 	}
 	print_fatal(env, ALL_PHILOS_ATE);
 	pthread_mutex_unlock(&env->mut_end);

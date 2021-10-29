@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 18:12:36 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 20:07:18 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define ERR_ARGS_COUNT			"Error: args count\n"
 # define ERR_ARG_NEG			"Error: argument '%s' can't be negative\n"
 # define ERR_MORE_PHILOS		"Error: can't have more than 200 philos\n"
-# define ERR_LESS_PHILOS		"Error: can't have less than 2 philos\n"
+# define ERR_LESS_PHILOS		"Error: can't have less than 1 philos\n"
 # define ERR_INIT_PHILOS		"Error: can't init philos\n"
 # define ERR_INIT_FORKS			"Error: can't init forks\n"
 

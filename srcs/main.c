@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 18:06:57 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 19:48:15 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int
 			return (FALSE);
 		pthread_detach(e->ecm_tid);
 	}
+	usleep(100);
 	i = -1;
 	while (++i < e->nb_philo)
 	{

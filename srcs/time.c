@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:21:59 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 17:05:06 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 20:09:22 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ uint64_t
 int
 	timestamp(t_env *e)
 {
-	return ((int)(real_timestamp() - e->start_tts));
+	return (real_timestamp() - e->start_tts);
 }
 
 void
 	sleep_ms(int ms)
 {
-	usleep(ms * MS_TO_US);
+	uint64_t	t;
+
+	t = real_timestamp() + ms;
+	while (real_timestamp() < t)
+		usleep(ms);
 }

@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 16:24:54 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 19:52:55 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int
 int
 	check_args(t_env *e)
 {
-	if (e->nb_philo < 2)
+	if (e->nb_philo < 1)
 		return (printf(ERR_LESS_PHILOS) && FALSE);
 	if (e->nb_philo > 200)
 		return (printf(ERR_MORE_PHILOS) && FALSE);
@@ -81,6 +81,7 @@ int
 		};
 		pthread_mutex_init(&e->mut_forks[i], NULL);
 		pthread_mutex_init(&e->philos[i].mut_eat, NULL);
+		pthread_mutex_lock(&e->philos[i].mut_eat);
 	}
 	pthread_mutex_init(&e->mut_writer, NULL);
 	pthread_mutex_init(&e->mut_end, NULL);

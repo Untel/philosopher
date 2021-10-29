@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:20:41 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 18:36:39 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 19:49:43 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void
 	sleep_ms(p->env->tt_eat);
 	p->last_meal = timestamp(p->env);
 	p->die_at = p->last_meal + p->env->tt_die;
-	pthread_mutex_unlock(&p->mut_eat);
 	p->eating = FALSE;
+	pthread_mutex_unlock(&p->mut_eat);
 }
 
 void

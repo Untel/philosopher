@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 23:22:52 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 17:55:40 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/10/29 20:10:08 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int
 int
 	ft_atoi(const char *str)
 {
-	unsigned int	i;
-	unsigned int	count;
-	int				sign;
+	uint64_t	i;
+	uint64_t	count;
+	int			sign;
 
 	i = 0;
 	count = 0;
