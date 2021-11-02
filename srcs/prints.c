@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prints.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:01:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 19:39:27 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/03 00:46:43 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int
 	int		idlen;
 
 	pthread_mutex_lock(&(p->env->mut_writer));
-	if (p->env->end)
+	if (p->env->end) {
+		pthread_mutex_unlock(&(p->env->mut_writer));
 		return (FALSE);
+	}
 	ttslen = ft_itoa(_tts, tts, "0123456789", 10);
 	idlen = ft_itoa(_id, p->id + 1, "0123456789", 10);
 	write(1, &(_tts[4096 - ttslen]), ttslen);
@@ -30,15 +32,18 @@ int
 	write(1, &(_id[4096 - idlen]), idlen);
 	write(1, " ", 1);
 	write(1, txt, ft_strlen(txt));
-	if (unlock)
+	if (unlock || 1)
 		pthread_mutex_unlock(&(p->env->mut_writer));
 	return (TRUE);
 }
 
 int
-	print_fatal(t_env *e, char *txt)
+	print_fatal(t_env *e)
 {
 	pthread_mutex_lock(&(e->mut_writer));
-	write(1, txt, ft_strlen(txt));
+	e->end = TRUE;
+	write(1, "all philos ate\n", 16);
+	// printf("%d all philos ate %d times\n", timestamp(e), e->nb_eat);
+	pthread_mutex_unlock(&(e->mut_writer));
 	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 19:52:55 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/03 00:42:53 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int
 		e->nb_eat = ft_atoi(argv[5]);
 	else
 		e->nb_eat = 0;
-	e->turn = 0;
 	e->end = 0;
 	if (TTS_START)
 		e->start_tts = real_timestamp();
@@ -85,6 +84,6 @@ int
 	}
 	pthread_mutex_init(&e->mut_writer, NULL);
 	pthread_mutex_init(&e->mut_end, NULL);
-	pthread_mutex_lock(&e->mut_end);
+	// pthread_mutex_lock(&e->mut_end);
 	return (TRUE);
 }

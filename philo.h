@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 20:07:18 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/03 00:43:06 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_env {
 	int							tt_die;
 	int							tt_sleep;
 	int							nb_eat;
-	int							turn;
 	int							end;
 	uint64_t					start_tts;
 	t_philo						*philos;
@@ -136,7 +135,7 @@ void		go_bed(t_philo *t);
  ** Prototypes prints.c
  **/
 int			print_status(t_philo *p, int tts, char *txt, int unlock);
-int			print_fatal(t_env *e, char *txt);
+int			print_fatal(t_env *e);
 
 /**
  ** Prototypes utils.c

@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/02 23:15:01 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 00:51:33 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int
 		p = &(e->philos[i]);
 		if (pthread_create(&(p->tid), NULL, &run_routine, p) != 0)
 			return (FALSE);
-		pthread_detach(p->tid);
+	}
+	i = -1;
+	while (++i < e->nb_philo)
+	{
+		p = &(e->philos[i]);
+		pthread_join(p->tid, NULL);
 	}
 	return (TRUE);
 }
@@ -50,8 +55,6 @@ int
 	if (!args_are_valids(&e, argc, argv))
 		return (EXIT_FAILURE);
 	create_threads(&e);
-	pthread_mutex_lock(&(e.mut_end));
-	pthread_mutex_unlock(&(e.mut_end));
 	clean_env(&e);
 	return (EXIT_SUCCESS);
 }
