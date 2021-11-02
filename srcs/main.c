@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 19:48:15 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/02 22:45:14 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int
 	{
 		if (pthread_create(&(e->ecm_tid), NULL, &eat_count_routine, e) != 0)
 			return (FALSE);
-		pthread_detach(e->ecm_tid);
+		pthread_join(e->ecm_tid, NULL);
 	}
 	usleep(100);
 	i = -1;
@@ -34,7 +34,7 @@ int
 		p = &(e->philos[i]);
 		if (pthread_create(&(p->tid), NULL, &run_routine, p) != 0)
 			return (FALSE);
-		pthread_detach(p->tid);
+		pthread_join(p->tid, NULL);
 	}
 	return (TRUE);
 }
