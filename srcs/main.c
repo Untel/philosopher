@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/03 00:51:33 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 00:56:02 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int
 	{
 		if (pthread_create(&(e->ecm_tid), NULL, &eat_count_routine, e) != 0)
 			return (FALSE);
-		pthread_detach(e->ecm_tid);
 	}
 	usleep(100);
 	i = -1;
@@ -41,6 +40,7 @@ int
 		p = &(e->philos[i]);
 		pthread_join(p->tid, NULL);
 	}
+	pthread_join(e->ecm_tid, NULL);
 	return (TRUE);
 }
 
