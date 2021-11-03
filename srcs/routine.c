@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:35:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/03 00:33:56 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 01:04:57 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void
 
 	env = (t_env *)addr;
 	eaten = -1;
-	while (++eaten < env->nb_eat)
+	while (++eaten < env->nb_eat && !env->end)
 	{
 		i = -1;
 		while (++i < env->nb_philo)
@@ -29,7 +29,8 @@ void
 			pthread_mutex_lock(&env->philos[i].mut_eat);
 		}
 	}
-	print_fatal(env);
+	if (!env->end)
+		print_fatal(env);
 	// pthread_mutex_unlock(&env->mut_end);
 	return (NULL);
 }

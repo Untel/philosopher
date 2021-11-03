@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/03 00:56:02 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 01:05:23 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ int
 		p = &(e->philos[i]);
 		pthread_join(p->tid, NULL);
 	}
+		i = -1;
+	// while (++i < e->nb_philo)
+	// {
+	// 	p = &(e->philos[i]);
+	// 	printf("Unmut %d\n", p->id);
+	// 	pthread_mutex_unlock(&(p->mut_eat));
+	// }
 	pthread_join(e->ecm_tid, NULL);
 	return (TRUE);
 }
