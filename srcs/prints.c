@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:01:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/03 00:46:43 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 01:18:38 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int
 		pthread_mutex_unlock(&(p->env->mut_writer));
 		return (FALSE);
 	}
+	p->env->end = !unlock;
 	ttslen = ft_itoa(_tts, tts, "0123456789", 10);
 	idlen = ft_itoa(_id, p->id + 1, "0123456789", 10);
 	write(1, &(_tts[4096 - ttslen]), ttslen);
@@ -32,8 +33,7 @@ int
 	write(1, &(_id[4096 - idlen]), idlen);
 	write(1, " ", 1);
 	write(1, txt, ft_strlen(txt));
-	if (unlock || 1)
-		pthread_mutex_unlock(&(p->env->mut_writer));
+	pthread_mutex_unlock(&(p->env->mut_writer));
 	return (TRUE);
 }
 

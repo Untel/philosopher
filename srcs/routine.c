@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:35:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/03 01:04:57 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/03 01:18:26 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ void
 	{
 		i = -1;
 		while (++i < env->nb_philo)
-		{
 			pthread_mutex_lock(&env->philos[i].mut_eat);
-		}
 	}
 	if (!env->end)
 		print_fatal(env);
-	// pthread_mutex_unlock(&env->mut_end);
 	return (NULL);
 }
 
@@ -47,8 +44,9 @@ void
 		tts = timestamp(p->env);
 		if (!p->eating && p->die_at < tts)
 		{
+			pthread_mutex_lock(&(p->env->mut_end));
 			print_status(p, tts, STATUS_DEAD, FALSE);
-			p->env->end = TRUE;
+			pthread_mutex_unlock(&(p->env->mut_end));
 			return (NULL);
 		}
 		usleep(100);
