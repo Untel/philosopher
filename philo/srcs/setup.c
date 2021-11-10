@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 19:52:55 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:13:07 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int
 		e->nb_eat = ft_atoi(argv[5]);
 	else
 		e->nb_eat = 0;
-	e->turn = 0;
-	e->end = 0;
+	e->end = FALSE;
 	if (TTS_START)
 		e->start_tts = real_timestamp();
 	else
 		e->start_tts = 0;
+	e->philos = NULL;
+	e->mut_forks = NULL;
+	e->idx = 0;
 	return (check_args(e));
 }
 
@@ -55,7 +57,7 @@ int
 		return (printf(ERR_ARG_NEG, "time_to_sleep") && FALSE);
 	if (e->nb_eat < 0)
 		return (printf(ERR_ARG_NEG, MUST_EAT) && FALSE);
-	return (setup_philos(e));
+	return (TRUE);
 }
 
 /**
@@ -64,27 +66,27 @@ int
 int
 	setup_philos(t_env *e)
 {
-	int	i;
-
 	e->philos = malloc(sizeof(t_philo) * (e->nb_philo));
 	if (!(e->philos))
 		return (printf(ERR_INIT_PHILOS) && FALSE);
 	e->mut_forks = malloc(sizeof(pthread_mutex_t) * (e->nb_philo));
 	if (!(e->mut_forks))
-		return (printf(ERR_INIT_FORKS) && FALSE);
-	i = e->nb_philo;
-	while (--i >= 0)
+		return (clean_env(e) && printf(ERR_INIT_FORKS) && FALSE);
+	while (e->idx < e->nb_philo)
 	{
-		e->philos[i] = (t_philo){.id = i, .env = e, .left_fork = i,
-			.right_fork = (i + 1) % e->nb_philo, .eating = FALSE,
-			.die_at = 0, .last_meal = 0,
+		e->philos[e->idx] = (t_philo){.id = e->idx, .env = e,
+			.left_fork = e->idx, .right_fork = (e->idx + 1) % e->nb_philo,
+			.eating = FALSE, .die_at = 0, .last_meal = 0, .eat_count = 0,
 		};
-		pthread_mutex_init(&e->mut_forks[i], NULL);
-		pthread_mutex_init(&e->philos[i].mut_eat, NULL);
-		pthread_mutex_lock(&e->philos[i].mut_eat);
+		if (pthread_mutex_init(&e->mut_forks[e->idx], NULL) != 0)
+			return (printf(ERR_INIT_MUTEX) && FALSE);
+		if (pthread_mutex_init(&e->philos[e->idx].mut_eat, NULL) != 0)
+			return (printf(ERR_INIT_MUTEX) && FALSE);
+		e->idx++;
 	}
-	pthread_mutex_init(&e->mut_writer, NULL);
-	pthread_mutex_init(&e->mut_end, NULL);
-	pthread_mutex_lock(&e->mut_end);
+	if (pthread_mutex_init(&e->mut_writer, NULL) != 0)
+		return (printf(ERR_INIT_MUTEX) && FALSE);
+	if (pthread_mutex_init(&e->mut_end, NULL) != 0)
+		return (printf(ERR_INIT_MUTEX) && FALSE);
 	return (TRUE);
 }

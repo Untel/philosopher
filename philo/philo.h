@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 20:07:18 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:43:39 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@
 # define ERR_LESS_PHILOS		"Error: can't have less than 1 philos\n"
 # define ERR_INIT_PHILOS		"Error: can't init philos\n"
 # define ERR_INIT_FORKS			"Error: can't init forks\n"
+# define ERR_INIT_MUTEX			"Error: can't init mutex\n"
+# define ERR_INIT_THREAD		"Error: can't init thread\n"
 
 /**
  ** Status
@@ -81,6 +83,7 @@ typedef struct s_philo {
 	int							left_fork;
 	int							right_fork;
 	int							eating;
+	int							eat_count;
 	uint64_t					last_meal;
 	uint64_t					die_at;
 	struct s_env				*env;
@@ -97,6 +100,7 @@ typedef struct s_env {
 	int							nb_eat;
 	int							turn;
 	int							end;
+	int							idx;
 	uint64_t					start_tts;
 	t_philo						*philos;
 	pthread_mutex_t				mut_writer;
@@ -127,10 +131,10 @@ void		*eat_count_routine(void *p);
 /**
  ** Prototypes actions.c
  **/
-void		take_fork(t_philo *t);
-void		eat(t_philo *t);
-void		think(t_philo *t);
-void		go_bed(t_philo *t);
+int			take_fork(t_philo *t);
+int			eat(t_philo *t);
+int			think(t_philo *t);
+int			go_bed(t_philo *t);
 
 /**
  ** Prototypes prints.c

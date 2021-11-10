@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prints.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:01:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 19:39:27 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:13:27 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int
 	int		idlen;
 
 	pthread_mutex_lock(&(p->env->mut_writer));
-	if (p->env->end)
-		return (FALSE);
+	if (p->env->end && unlock)
+		return (pthread_mutex_unlock(&(p->env->mut_writer)) == 0
+			&& FALSE);
 	ttslen = ft_itoa(_tts, tts, "0123456789", 10);
 	idlen = ft_itoa(_id, p->id + 1, "0123456789", 10);
 	write(1, &(_tts[4096 - ttslen]), ttslen);
@@ -30,8 +31,7 @@ int
 	write(1, &(_id[4096 - idlen]), idlen);
 	write(1, " ", 1);
 	write(1, txt, ft_strlen(txt));
-	if (unlock)
-		pthread_mutex_unlock(&(p->env->mut_writer));
+	pthread_mutex_unlock(&(p->env->mut_writer));
 	return (TRUE);
 }
 

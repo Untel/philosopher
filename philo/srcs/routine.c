@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:35:10 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/02 22:48:15 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/10 18:13:39 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void
 	{
 		i = -1;
 		while (++i < env->nb_philo)
-		{
 			pthread_mutex_lock(&env->philos[i].mut_eat);
-		}
 	}
 	print_fatal(env, ALL_PHILOS_ATE);
 	pthread_mutex_unlock(&env->mut_end);
@@ -58,6 +56,9 @@ void
 
 /**
  ** run_routine
+ **	if (pthread_create(&p->liveness_tid, NULL, &liveness_routine, addr) != 0)
+ **		return ((void *)TRUE);
+ **	pthread_detach(p->liveness_tid);
  **/
 void
 	*run_routine(void *addr)
@@ -69,15 +70,14 @@ void
 		sleep_ms(p->id * DELAY_THREAD_CREATION);
 	p->last_meal = timestamp(p->env);
 	p->die_at = p->last_meal + p->env->tt_die;
-	if (pthread_create(&p->liveness_tid, NULL, &liveness_routine, addr) != 0)
-		return ((void *)TRUE);
-	pthread_detach(p->liveness_tid);
-	while (!p->env->end)
-	{
-		take_fork(p);
-		eat(p);
-		go_bed(p);
-		think(p);
-	}
+	while (!p->env->end
+		&& take_fork(p)
+		&& eat(p)
+		&& go_bed(p)
+		&& think(p))
+		;
+	pthread_mutex_unlock(&p->env->mut_forks[p->right_fork]);
+	pthread_mutex_unlock(&p->env->mut_forks[p->left_fork]);
+	pthread_mutex_unlock(&p->mut_eat);
 	return (NULL);
 }

@@ -18,7 +18,7 @@ CC					= gcc
 OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0 
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
 OBJS				= $(SRCS:.c=.o)
-NAME				= philosopher
+NAME				= philo
 
 ARGS				= 20 410 300 100
 OBJ_DIR				= objs
@@ -26,7 +26,7 @@ OBJ_DIR				= objs
 all:				
 					@$(MAKE) $(NAME)
 
-$(NAME):			$(OBJS) philo.h
+$(NAME):			$(OBJS)
 					$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
 bonus:				all
@@ -49,4 +49,4 @@ re:					clean all
 
 fre:				fclean all
 
-.PHONY:				all clean fclean re fre norme bonus run
+.PHONY:				${NAME} all clean fclean re fre norme bonus run

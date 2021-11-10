@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 20:50:26 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 16:21:07 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:52:49 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 int
 	clean_env(t_env *e)
 {
-	(void)e;
+	int i;
+
+	i = -1;
+	while (++i < e->idx)
+	{
+		pthread_mutex_destroy(&(e->mut_forks[i]));
+		pthread_mutex_destroy(&(e->philos[i].mut_eat));
+	}
 	free(e->philos);
 	free(e->mut_forks);
 	return (TRUE);
