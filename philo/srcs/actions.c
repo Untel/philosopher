@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:20:41 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/10 18:21:22 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/11 17:12:54 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int
 {
 	int			first_fork;
 	int			next_fork;
-	int			tts;
 
 	if (p->id % 2 == 1)
 	{
@@ -30,12 +29,10 @@ int
 		next_fork = p->left_fork;
 	}
 	pthread_mutex_lock(&p->env->mut_forks[first_fork]);
-	tts = timestamp(p->env);
-	if (!print_status(p, tts, STATUS_TAKE_FORK, TRUE))
+	if (!print_status(p, STATUS_TAKE_FORK))
 		return (FALSE);
 	pthread_mutex_lock(&p->env->mut_forks[next_fork]);
-	tts = timestamp(p->env);
-	return (print_status(p, tts, STATUS_TAKE_FORK, TRUE));
+	return (print_status(p, STATUS_TAKE_FORK));
 }
 
 int
@@ -45,7 +42,7 @@ int
 	p->eating = TRUE;
 	p->last_meal = timestamp(p->env);
 	pthread_mutex_unlock(&p->mut_eat);
-	if (!print_status(p, p->last_meal, STATUS_EATING, TRUE))
+	if (!print_status(p, STATUS_EATING))
 		return (FALSE);
 	sleep_ms(p->env->tt_eat);
 	pthread_mutex_lock(&p->mut_eat);
@@ -59,16 +56,13 @@ int
 int
 	think(t_philo *p)
 {
-	int		tts;
-
-	tts = timestamp(p->env);
-	return (print_status(p, tts, STATUS_THINKING, TRUE));
+	return (print_status(p, STATUS_THINKING));
 }
 
 int
 	go_bed(t_philo *p)
 {
-	print_status(p, timestamp(p->env), STATUS_SLEEPING, TRUE);
+	print_status(p, STATUS_SLEEPING);
 	pthread_mutex_unlock(&(p->env->mut_forks[p->left_fork]));
 	pthread_mutex_unlock(&(p->env->mut_forks[p->right_fork]));
 	sleep_ms(p->env->tt_sleep);
