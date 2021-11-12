@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 23:22:52 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/10/29 20:10:08 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:22:46 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int
 int
 	ft_atoi(const char *str)
 {
-	uint64_t	i;
-	uint64_t	count;
+	int			i;
+	int			count;
 	int			sign;
 
 	i = 0;
@@ -45,9 +45,7 @@ int
 		if (str[i++] == '-')
 			sign = -1;
 	while (ft_isdigit(str[i]))
-	{
 		count = count * 10 + (str[i++] - '0');
-	}
 	return (count * sign);
 }
 

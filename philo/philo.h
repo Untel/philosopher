@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/11 18:30:19 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 16:12:35 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ typedef struct s_env {
  ** Prototypes main.c
  **/
 int			main(int argc, char**argv);
+void		release(t_env *e);
+int			should_stop_simulation(t_env *e);
+int			create_threads(t_env *e);
 
 /**
  ** Prototypes setup.c

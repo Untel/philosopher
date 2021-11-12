@@ -13,10 +13,11 @@ SRCS_FILES			= \
 SRCS				= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 INCLUDES			= -I .
 LIBS				= -lpthread
-CC					= gcc
+CC					= clang
 
 OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0 
-CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES)
+DEBUG				= -g3 -fsanitize=thread
+CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES) $(DEBUG)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
 
@@ -27,7 +28,7 @@ all:
 					@$(MAKE) $(NAME)
 
 $(NAME):			$(OBJS)
-					$(CC) $(OBJS) $(LIBS) -o $(NAME)
+					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 bonus:				all
 

@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:21:59 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 14:35:16 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 16:05:46 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void
 
 	t = real_timestamp() + ms;
 	while (real_timestamp() < t)
-		usleep(ms);
+		usleep((useconds_t) ms);
 }
