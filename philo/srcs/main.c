@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/11 17:28:33 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/11 18:55:34 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,26 @@ int
 	int			i;
 	int			tts;
 	t_philo		*philo;
-	int			should_stop;
 
 	i = -1;
 	tts = timestamp(e);
-	should_stop = e->nb_eat > 0;
-	pthread_mutex_lock(&(e->mut_end));
 	while (++i < e->nb_philo)
 	{
 		philo = &(e->philos[i]);
 		pthread_mutex_lock(&philo->mut_eat);
-		should_stop &= (philo->eat_count >= e->nb_eat);
 		if (!philo->eating && philo->die_at && philo->die_at < tts)
 		{
+			pthread_mutex_lock(&(e->mut_end));
+			pthread_mutex_lock(&(e->mut_writer));
 			e->end = TRUE;
 			printf("%d %d %s", tts, philo->id + 1, STATUS_DEAD);
-			should_stop = FALSE;
+			pthread_mutex_unlock(&(e->mut_writer));
+			pthread_mutex_unlock(&(e->mut_end));
 			pthread_mutex_unlock(&philo->mut_eat);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->mut_eat);
 	}
-	if (should_stop) {
-		e->end = TRUE;
-	}
-	pthread_mutex_unlock(&(e->mut_end));
 	usleep(100);
 	return (FALSE);
 }
@@ -87,11 +82,9 @@ void
 	while (++i < e->nb_philo)
 	{
 		p = &(e->philos[i]);
-		pthread_mutex_unlock(&e->mut_forks[p->right_fork]);
-		pthread_mutex_unlock(&e->mut_forks[p->left_fork]);
+		pthread_mutex_unlock(&e->mut_forks[p->id]);
 		pthread_mutex_unlock(&p->mut_eat);
-		pthread_mutex_destroy(&e->mut_forks[p->right_fork]);
-		pthread_mutex_destroy(&e->mut_forks[p->left_fork]);
+		pthread_mutex_destroy(&e->mut_forks[p->id]);
 		pthread_mutex_destroy(&p->mut_eat);
 	}
 	pthread_mutex_unlock(&e->mut_writer);

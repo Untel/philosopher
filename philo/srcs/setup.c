@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/10 19:15:59 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/11 18:30:31 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int
 	e->philos = NULL;
 	e->mut_forks = NULL;
 	e->idx = 0;
+	e->all_has_eat = 0;
 	return (check_args(e));
 }
 

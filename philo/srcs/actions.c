@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 19:20:41 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/11 17:12:54 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/11 18:33:37 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ int
 	sleep_ms(p->env->tt_eat);
 	pthread_mutex_lock(&p->mut_eat);
 	p->eat_count += 1;
+	p->env->all_has_eat += (p->eat_count == p->env->nb_eat);
+	if (p->env->all_has_eat == p->env->nb_philo)
+	{
+		pthread_mutex_lock(&p->env->mut_end);
+		p->env->end = TRUE;
+		pthread_mutex_unlock(&p->env->mut_end);
+		pthread_mutex_unlock(&p->mut_eat);
+		return (FALSE);
+	}
 	p->die_at = p->last_meal + p->env->tt_die;
 	p->eating = FALSE;
 	pthread_mutex_unlock(&p->mut_eat);

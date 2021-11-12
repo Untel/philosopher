@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/11 17:10:47 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/11 18:30:19 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_philo {
 }								t_philo;
 
 typedef struct s_env {
+	int							all_has_eat;
 	int							nb_philo;
 	int							tt_eat;
 	int							tt_die;
