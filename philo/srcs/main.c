@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 16:33:23 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 17:09:27 by commetuveux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,18 @@ void
 	while (++i < e->nb_philo)
 	{
 		p = &(e->philos[i]);
-		pthread_mutex_unlock(&e->mut_forks[p->id]);
-		pthread_mutex_unlock(&p->mut_eat);
-		// pthread_mutex_destroy(&e->mut_forks[p->id]);
-		// pthread_mutex_destroy(&p->mut_eat);
+		// pthread_mutex_unlock(&e->mut_forks[p->id]);
+		// pthread_mutex_unlock(&p->mut_eat);
+		pthread_mutex_destroy(&e->mut_forks[p->id]);
+		pthread_mutex_destroy(&p->mut_eat);
 	}
-	pthread_mutex_unlock(&e->mut_writer);
-	// pthread_mutex_destroy(&e->mut_writer);
+	// pthread_mutex_unlock(&e->mut_writer);
+	pthread_mutex_destroy(&e->mut_writer);
 	i = -1;
 	while (++i < e->nb_philo)
 		pthread_join(e->philos[i].tid, NULL);
-	pthread_mutex_unlock(&e->mut_end);
-	// pthread_mutex_destroy(&e->mut_end);
+	// pthread_mutex_unlock(&e->mut_end);
+	pthread_mutex_destroy(&e->mut_end);
 }
 
 /**
