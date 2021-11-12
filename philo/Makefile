@@ -17,9 +17,11 @@ CC					= clang
 
 OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=2 -D USE_PRINTF=0
 DEBUG				= -g3
-CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES) $(DEBUG)
+CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES) $(DEBUG) -MMD
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
+
+DEP 				= $(OBJS:.o=.d)
 
 ARGS				= 20 410 300 100
 OBJ_DIR				= objs
@@ -28,6 +30,8 @@ all:				$(NAME)
 
 $(NAME):			$(OBJS)
 					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+
+-include $(DEP)
 
 bonus:				all
 
@@ -39,10 +43,10 @@ norme:
 					norminette $(SRCS)
 
 clean:
-					$(RM) $(OBJS)
+					$(RM) $(OBJS) $(DEP)
 
-fclean:
-					$(RM) $(OBJS)
+fclean:				clean
+					
 					$(RM) $(NAME)
 
 re:					clean all
