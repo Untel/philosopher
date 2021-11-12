@@ -1,4 +1,3 @@
-
 SRCS_DIR			= srcs
 SRCS_FILES			= \
 					main.c \
