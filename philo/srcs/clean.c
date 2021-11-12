@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 20:50:26 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/10 18:38:56 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 18:46:49 by riblanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 int
 	clean_env(t_env *e)
 {
-	int	i;
-
-	i = -1;
-	while (++i < e->idx)
-	{
-		pthread_mutex_destroy(&(e->mut_forks[i]));
-		pthread_mutex_destroy(&(e->philos[i].mut_eat));
-	}
 	free(e->philos);
 	free(e->mut_forks);
 	return (TRUE);

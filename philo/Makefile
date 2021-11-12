@@ -15,8 +15,8 @@ INCLUDES			= -I .
 LIBS				= -lpthread
 CC					= clang
 
-OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0 
-DEBUG				= 
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=2 -D USE_PRINTF=0
+DEBUG				= -g3
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES) $(DEBUG)
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
@@ -24,8 +24,7 @@ NAME				= philo
 ARGS				= 20 410 300 100
 OBJ_DIR				= objs
 
-all:				
-					@$(MAKE) $(NAME)
+all:				$(NAME)
 
 $(NAME):			$(OBJS)
 					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
@@ -50,4 +49,4 @@ re:					clean all
 
 fre:				fclean all
 
-.PHONY:				${NAME} all clean fclean re fre norme bonus run
+.PHONY:				all clean fclean re fre norme bonus run

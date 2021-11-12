@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 16:12:35 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 19:52:54 by riblanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # define EXIT_FAILURE			1
 # define EXIT_SUCCESS			0
 # define MS_TO_US				1000
+# define LFORK					0b10
+# define RFORK					0b01
+# define RELEASE_LFORK			0b01
+# define RELEASE_RFORK			0b10
 
 # ifndef TTS_START
 #  define TTS_START				0
@@ -89,6 +93,7 @@ typedef struct s_philo {
 	struct s_env				*env;
 	pthread_t					tid;
 	pthread_mutex_t				mut_eat;
+	char						mflag;
 }								t_philo;
 
 typedef struct s_env {
@@ -105,7 +110,10 @@ typedef struct s_env {
 	pthread_mutex_t				mut_writer;
 	pthread_mutex_t				mut_end;
 	pthread_mutex_t				*mut_forks;
+	pthread_mutex_t				mut_init;
 }								t_env;
+
+typedef void *(*t_routine)(void *);
 
 /**
  ** Prototypes main.c
@@ -125,7 +133,7 @@ int			setup_philos(t_env *e);
 /**
  ** Prototypes routine.c
  **/
-void		*run_routine(void *p);
+void		*run_routine(t_philo *p);
 
 /**
  ** Prototypes actions.c
@@ -134,6 +142,8 @@ int			take_fork(t_philo *t);
 int			eat(t_philo *t);
 int			think(t_philo *t);
 int			go_bed(t_philo *t);
+void		*drop_forks(t_philo *p);
+
 
 /**
  ** Prototypes prints.c
@@ -155,7 +165,7 @@ int			ft_strlen(char *str);
  **/
 uint64_t	real_timestamp(void);
 int			timestamp(t_env *e);
-void		sleep_ms(int ms);
+void		sleep_ms(int ms, t_env *e);
 
 /**
  ** Prototypes clean.c

@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 01:21:59 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 16:05:46 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 19:41:47 by riblanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ int
 }
 
 void
-	sleep_ms(int ms)
+	sleep_ms(int ms, t_env *e)
 {
 	uint64_t	t;
+	int			ret;
 
 	t = real_timestamp() + ms;
 	while (real_timestamp() < t)
-		usleep((useconds_t) ms);
+	{
+		pthread_mutex_lock(&e->mut_end);
+		ret = e->end;
+		pthread_mutex_unlock(&e->mut_end);
+		if (ret)
+			break ;
+		usleep(150);
+	}
 }

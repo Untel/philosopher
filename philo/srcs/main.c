@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:53:20 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 17:18:41 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 20:02:55 by riblanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ int
 	int			i;
 	t_philo		*p;
 
+	pthread_mutex_lock(&e->mut_init);
 	i = -1;
 	while (++i < e->nb_philo)
 	{
 		p = &(e->philos[i]);
-		if (pthread_create(&(p->tid), NULL, &run_routine, p) != 0)
+		if (pthread_create(&(p->tid), NULL, (t_routine)run_routine, p) != 0)
 			return (printf(ERR_INIT_THREAD) && FALSE);
 	}
+	pthread_mutex_unlock(&e->mut_init);
 	return (TRUE);
 }
 
@@ -67,8 +69,8 @@ int
 			break ;
 		}
 		pthread_mutex_unlock(&philo->mut_eat);
+		usleep(100);
 	}
-	usleep(100);
 	return (FALSE);
 }
 
@@ -76,24 +78,10 @@ void
 	release(t_env *e)
 {
 	int		i;
-	t_philo	*p;
 
 	i = -1;
 	while (++i < e->nb_philo)
-	{
-		p = &(e->philos[i]);
-		pthread_mutex_unlock(&e->mut_forks[p->id]);
-		pthread_mutex_unlock(&p->mut_eat);
-		pthread_mutex_destroy(&e->mut_forks[p->id]);
-		pthread_mutex_destroy(&p->mut_eat);
-	}
-	pthread_mutex_unlock(&e->mut_writer);
-	pthread_mutex_destroy(&e->mut_writer);
-	i = -1;
-	while (++i < e->nb_philo)
 		pthread_join(e->philos[i].tid, NULL);
-	pthread_mutex_unlock(&e->mut_end);
-	pthread_mutex_destroy(&e->mut_end);
 }
 
 /**
@@ -110,8 +98,17 @@ int
 		return (clean_env(&e) && EXIT_FAILURE);
 	if (!create_threads(&e))
 		return (clean_env(&e) && EXIT_FAILURE);
-	while (!e.end)
+	while (TRUE)
+	{
+		pthread_mutex_lock(&(e.mut_end));
+		if (e.end)
+		{
+			pthread_mutex_unlock(&(e.mut_end));
+			break ;
+		}
+		pthread_mutex_unlock(&(e.mut_end));
 		should_stop_simulation(&e);
+	}
 	usleep(100);
 	release(&e);
 	clean_env(&e);

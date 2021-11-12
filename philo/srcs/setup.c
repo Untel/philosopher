@@ -6,7 +6,7 @@
 /*   By: commetuveux <commetuveux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:45:45 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 17:03:19 by commetuveux      ###   ########.fr       */
+/*   Updated: 2021/11/12 19:55:26 by riblanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int
 		return (clean_env(e) && printf(ERR_INIT_FORKS) && FALSE);
 	while (e->idx < e->nb_philo)
 	{
-		e->philos[e->idx] = (t_philo){.id = e->idx, .env = e,
+		e->philos[e->idx] = (t_philo){.id = e->idx, .env = e, .mflag = 0,
 			.left_fork = e->idx, .right_fork = (e->idx + 1) % e->nb_philo,
 			.eating = FALSE, .die_at = 0, .last_meal = 0, .eat_count = 0,
 		};
@@ -88,6 +88,8 @@ int
 	if (pthread_mutex_init(&e->mut_writer, NULL) != 0)
 		return (printf(ERR_INIT_MUTEX) && FALSE);
 	if (pthread_mutex_init(&e->mut_end, NULL) != 0)
+		return (printf(ERR_INIT_MUTEX) && FALSE);
+	if (pthread_mutex_init(&e->mut_init, NULL) != 0)
 		return (printf(ERR_INIT_MUTEX) && FALSE);
 	return (TRUE);
 }
