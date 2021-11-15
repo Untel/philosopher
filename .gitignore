@@ -1,4 +1,5 @@
 **/**.o
+**/**.d
 .vscode
 philo/philo
 philo/philo.dSYM

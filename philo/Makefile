@@ -14,8 +14,8 @@ INCLUDES			= -I .
 LIBS				= -lpthread
 CC					= clang
 
-OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=2 -D USE_PRINTF=0
-DEBUG				= -g3
+OPTS				= -D TTS_START=1 -D DELAY_THREAD_CREATION=0 -D USE_PRINTF=0
+DEBUG				= 
 CFLAGS				= -Wall -Wextra -Werror ${OPTS} $(INCLUDES) $(DEBUG) -MMD
 OBJS				= $(SRCS:.c=.o)
 NAME				= philo
