@@ -6,7 +6,7 @@
 /*   By: adda-sil <adda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 21:54:11 by adda-sil          #+#    #+#             */
-/*   Updated: 2021/11/12 21:39:49 by adda-sil         ###   ########.fr       */
+/*   Updated: 2021/11/15 08:41:43 by adda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_env {
 	pthread_mutex_t				mut_init;
 }								t_env;
 
-typedef void *(*t_routine)(void *);
+typedef void					*(*t_routine)(void *);
 
 /**
  ** Prototypes main.c
@@ -143,7 +143,6 @@ int			eat(t_philo *t);
 int			think(t_philo *t);
 int			go_bed(t_philo *t);
 void		*drop_forks(t_philo *p);
-
 
 /**
  ** Prototypes prints.c
